@@ -5,6 +5,7 @@ from schemas import DeveloperCreate, DeveloperResponse, FeedbackCreate, Feedback
 from fastapi import FastAPI, Depends
 from fastapi.responses import JSONResponse
 
+# start
 SQLALCHEMY_DB_URL = "postgresql+psycopg2://postgres:password@localhost:5432/feedbackfeel"
 engine = create_engine(SQLALCHEMY_DB_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -53,4 +54,5 @@ def insert_feedback(feedback: FeedbackCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(feed)
     return feed
+
 
