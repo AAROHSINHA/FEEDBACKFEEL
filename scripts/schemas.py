@@ -28,8 +28,8 @@ class DeveloperResponse(BaseModel):
 class FeedbackCreate(BaseModel):
     dev_id: UUID
     feedback_text: str
-    sentiment: str
-    confidence: float
+    # sentiment: str
+    # confidence: float
 
 # Response Model For Feedback
 class FeedbackResponse(BaseModel):
