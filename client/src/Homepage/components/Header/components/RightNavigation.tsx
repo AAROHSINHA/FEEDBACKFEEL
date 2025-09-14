@@ -1,6 +1,7 @@
 import { Globe, User, Moon, Github } from "lucide-react";
 import { useContext } from "react";
 import { ThemeContext } from "../../../../ThemeContext";
+import { Link } from "react-router-dom";
 
 const RightNavigation = () => {
   const themeContext = useContext(ThemeContext);
@@ -19,10 +20,12 @@ const RightNavigation = () => {
       <button className="text-gray-400 hover:text-white hover:cursor-pointer">
         <Github className="w-5 h-5" />
       </button>
-      <button className="flex items-center gap-1 text-gray-400 hover:text-white text-sm hover:cursor-pointer">
-        <User className="w-5 h-5" />
-        Sign In
-      </button>
+      <Link to={"/sign-in"}>
+        <button className="flex items-center gap-1 text-gray-400 hover:text-white text-sm hover:cursor-pointer">
+          <User className="w-5 h-5" />
+          Sign In
+        </button>
+      </Link>
     </div>
   );
 };
