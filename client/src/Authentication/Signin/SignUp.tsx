@@ -1,15 +1,30 @@
-import { ArrowLeft } from "lucide-react";
 import { Header } from "./components/Header";
 import { Text } from "./components/Text";
-import { Divider } from "./components/Divider";
-import { GoogleButton } from "./components/GoogleButton";
-import { SignupButton } from "./components/SignupButton";
+// import { Divider } from "./components/Divider";
+// import { GoogleButton } from "./components/GoogleButton";
+import { SignupButton } from "./components/SigninButton";
 import { useState } from "react";
 import axios from "axios";
-export default function SignIn() {
+import { useNavigate } from "react-router-dom";
+
+interface ErrorResponsesInterface {
+  "Email already exists": string;
+  "Validation Error Occurred!": string;
+  "Unknown Error Occurred!": string;
+}
+const error_responses: ErrorResponsesInterface = {
+  "Email already exists": "ACCOUNT WITH THIS EMAIL ALREADY EXISTS!",
+  "Validation Error Occurred!": "INVALID NAME OR EMAIL",
+  "Unknown Error Occurred!": "SOME ERROR OCCURRED! PLEASE TRY AGAIN...",
+};
+
+export default function SignUp() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSignIn = async () => {
     if (!userName || !email || !password) alert("Please Fill All Fields!!!");
@@ -19,17 +34,27 @@ export default function SignIn() {
       password: password,
     };
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:5002/auth/local-sign-in",
-        data,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response);
-    } catch (error) {
-      alert("Some Error Ocurred!");
+      await axios.post("http://127.0.0.1:5102/auth/local-sign-up", data, {
+        withCredentials: true,
+      });
+      setTimeout(() => {
+        setSuccessMessage("ACCOUNT CREATED SUCCESFULLY!");
+      }, 2000);
+      setErrorMessage("");
+      setSuccessMessage("");
+      navigate("/login");
+    } catch (error: any) {
       console.log(error);
+      setSuccessMessage("");
+      const error_text = error?.response?.data;
+
+      if (error_text && error_text.detail) {
+        const message =
+          error_responses[error_text.detail as keyof ErrorResponsesInterface];
+        setErrorMessage(message ?? "SOME ERROR OCCURRED! PLEASE TRY AGAIN...");
+      } else {
+        setErrorMessage("SOME ERROR OCCURRED! PLEASE TRY AGAIN...");
+      }
     }
   };
 
@@ -98,7 +123,10 @@ export default function SignIn() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-
+            <p className="text-red-400 text-sm text-center">{errorMessage}</p>
+            <p className="text-green-400 text-sm text-center">
+              {successMessage}
+            </p>
             <button
               className="w-full rounded-md bg-white text-black py-2 font-medium hover:bg-gray-100 transition hover:cursor-pointer"
               onClick={handleSignIn}
@@ -108,10 +136,10 @@ export default function SignIn() {
           </div>
 
           {/* Divider */}
-          <Divider />
+          {/* <Divider /> */}
 
           {/* Google Sign In */}
-          <GoogleButton />
+          {/* <GoogleButton /> */}
 
           {/* Footer text */}
           <SignupButton />

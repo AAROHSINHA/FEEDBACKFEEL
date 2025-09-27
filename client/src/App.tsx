@@ -1,5 +1,6 @@
 import HomePage from "./Homepage/Homepage";
-import SignIn from "./Authentication/Signin/Signin";
+import SignIn from "./Authentication/Signin/SignUp";
+import Login from "./Authentication/Login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createContext, useState } from "react";
 import { ThemeContext } from "./ThemeContext";
@@ -11,7 +12,8 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignIn />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </ThemeContext.Provider>

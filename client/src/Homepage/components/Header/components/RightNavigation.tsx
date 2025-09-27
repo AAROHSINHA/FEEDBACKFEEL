@@ -20,7 +20,7 @@ const RightNavigation = () => {
       <button className="text-gray-400 hover:text-white hover:cursor-pointer">
         <Github className="w-5 h-5" />
       </button>
-      <Link to={"/sign-in"}>
+      <Link to={"/sign-up"}>
         <button className="flex items-center gap-1 text-gray-400 hover:text-white text-sm hover:cursor-pointer">
           <User className="w-5 h-5" />
           Sign In
