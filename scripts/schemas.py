@@ -11,6 +11,12 @@ class DeveloperCreate(BaseModel):
     name: str
     email: str
     password: str
+    # api_key: str
+
+class DeveloperCreateAPP(BaseModel):
+    name: str
+    email: str
+    password: str
     api_key: str
 
 # Response model for returning developer info
