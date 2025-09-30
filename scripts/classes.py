@@ -22,6 +22,7 @@ class Developer(Base):
 
     # Relationship
     feedbacks = relationship("Feedback", back_populates="developer")
+    sessions = relationship("Session", back_populates="developer")
 
 ## FEEDBACK CLASS (represents feedbacks table)
 class Feedback(Base):
@@ -35,3 +36,14 @@ class Feedback(Base):
     created_at = Column(TIMESTAMP, server_default=text("now()"))
 
     developer = relationship("Developer", back_populates="feedbacks")
+
+class Session(Base):
+    __tablename__ = "sessions"
+
+    session_id = Column(Text, primary_key=True)
+    dev_id = Column(UUID(as_uuid=True), ForeignKey("developers.dev_id"), nullable=False)
+    created_at = Column(TIMESTAMP, server_default=text("now()"))
+    expires_at = Column(TIMESTAMP, nullable=False)
+
+    developer =relationship("Developer", back_populates="sessions")
+

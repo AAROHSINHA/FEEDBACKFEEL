@@ -1,0 +1,9 @@
+=> FOR AUTHENTICATION
+1. For authentication we are following cookie based authentication. On login, we set the cookie with a session id and
+store the session object in sessions table in the db. That session object has an expiry date.
+2. The expiry strategy we follow is 'ROLLING EXPIRY'. Means on every successive api call which requires a login check
+we see if we update the expiry date, do we get a new one, if we get a new one, we update it. Hence this ensures
+the login logout is based on activity rather that a specified time.
+3. If the user is logged out, the cookie is deleted. We let the session object stay in the session db. The next time the
+same user tries to login again, we would know by his/her dev_id and we simply update the session object.
+SIMPLE!

@@ -14,11 +14,10 @@ model1_svm = joblib.load("sentiment_svm.pkl")
 vectorizer = joblib.load("tfidf_vectorizer.pkl")
 
 app = FastAPI()
-app.include_router(authentication.router, prefix="/auth", tags=["Authentication"])
 # Allow frontend
 origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173"
+    "http://localhost:5174",
+    "http://127.0.0.1:5174"
 ]
 
 app.add_middleware(
@@ -28,6 +27,7 @@ app.add_middleware(
     allow_methods=["*"],  # GET, POST, PUT, DELETE etc.
     allow_headers=["*"],
 )
+app.include_router(authentication.router, prefix="/auth", tags=["Authentication"])
 
 # simple test check route
 @app.get("/")

@@ -5,6 +5,13 @@ from datetime import datetime
 
 from sqlalchemy.dialects.mysql import FLOAT
 
+'''
+Developer Responses =>
+1. DeveloperCreate - create Developer in signup
+2. DeveloperCreateApp - Create developer in universal route in app
+3. DeveloperResponse - Response to return the developer object
+4. DeveloperSignUpResponse - Response in Signup
+'''
 
 # Request model for creating a developer
 class DeveloperCreate(BaseModel):
@@ -29,6 +36,18 @@ class DeveloperResponse(BaseModel):
 
     class Config:
         from_attribute = True  # allows returning SQLAlchemy objects directly
+
+# Response for Signup
+class DeveloperAuthResponse(BaseModel):
+    status: str
+    message: str
+    # user: DeveloperResponse
+
+# Login
+class DeveloperLogin(BaseModel):
+    email: str
+    password: str
+
 
 # Request Model For Creating Feedback
 class FeedbackCreate(BaseModel):
