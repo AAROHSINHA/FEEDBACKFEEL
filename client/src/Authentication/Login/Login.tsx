@@ -4,13 +4,42 @@ import { Text } from "./components/Text";
 // import { GoogleButton } from "./components/GoogleButton";
 import { SignupButton } from "./components/SignupButton";
 import { useState } from "react";
+import axios from "axios";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async () => {
     if (!email || !password) {
+      alert("Please Fill Both Fields!");
       return;
+    }
+    try {
+      const request = await axios.post(
+        "http://127.0.0.1:2998/auth/local-login",
+        {
+          email: email,
+          password: password,
+        },
+        { withCredentials: true }
+      );
+      console.log(request);
+    } catch (error: any) {
+      console.log(error);
+      const error_text = error?.response?.data?.detail;
+      console.log(error_text);
+      if (error_text) {
+        if (error_text == "invalid_password")
+          setErrorMessage("Invalid Password");
+        else if (error_text == "no_email_exists")
+          setErrorMessage("No Such Email Exists! Sign Up First...");
+        else if (error_text == "validation_error")
+          setErrorMessage("Enter Correct Email / Password.");
+        else setErrorMessage("Server Error! Please Try Again Later...");
+      } else {
+        setErrorMessage("Server Error! Please Try Again In Some Time...");
+      }
     }
   };
 
@@ -64,7 +93,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-
+            <p className="text-red-400 text-sm text-center">{errorMessage}</p>
             <button
               className="w-full rounded-md bg-white text-black py-2 font-medium hover:bg-gray-100 transition hover:cursor-pointer"
               onClick={handleLogin}

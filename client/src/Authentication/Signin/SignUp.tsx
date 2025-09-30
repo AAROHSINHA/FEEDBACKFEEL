@@ -27,24 +27,30 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const handleSignIn = async () => {
-    if (!userName || !email || !password) alert("Please Fill All Fields!!!");
+    if (!userName || !email || !password) {
+      alert("Please Fill All Fields!!!");
+      return;
+    }
     const data = {
       name: userName,
       email: email,
       password: password,
     };
     try {
-      await axios.post("http://127.0.0.1:5102/auth/local-sign-up", data, {
-        withCredentials: true,
-      });
-      setTimeout(() => {
-        setSuccessMessage("ACCOUNT CREATED SUCCESFULLY!");
-      }, 2000);
+      const response = await axios.post(
+        "http://127.0.0.1:2998/auth/local-sign-up",
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
       setErrorMessage("");
-      setSuccessMessage("");
-      navigate("/login");
+      setSuccessMessage("ACCOUNT CREATED SUCCESFULLY!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     } catch (error: any) {
-      console.log(error);
       setSuccessMessage("");
       const error_text = error?.response?.data;
 
