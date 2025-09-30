@@ -5,10 +5,14 @@ import { Text } from "./components/Text";
 import { SignupButton } from "./components/SignupButton";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { api } from "../../api";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -16,19 +20,13 @@ export default function Login() {
       return;
     }
     try {
-      const request = await axios.post(
-        "http://127.0.0.1:2998/auth/local-login",
-        {
-          email: email,
-          password: password,
-        },
-        { withCredentials: true }
-      );
-      console.log(request);
+      await api.post("/auth/local-login", {
+        email: email,
+        password: password,
+      });
+      // navigate("/");
     } catch (error: any) {
-      console.log(error);
       const error_text = error?.response?.data?.detail;
-      console.log(error_text);
       if (error_text) {
         if (error_text == "invalid_password")
           setErrorMessage("Invalid Password");

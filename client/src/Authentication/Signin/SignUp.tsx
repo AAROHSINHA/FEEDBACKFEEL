@@ -6,6 +6,7 @@ import { SignupButton } from "./components/SigninButton";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../api";
 
 interface ErrorResponsesInterface {
   "Email already exists": string;
@@ -37,14 +38,7 @@ export default function SignUp() {
       password: password,
     };
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:2998/auth/local-sign-up",
-        data,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response);
+      await api.post("/auth/local-sign-up", data);
       setErrorMessage("");
       setSuccessMessage("ACCOUNT CREATED SUCCESFULLY!");
       setTimeout(() => {
