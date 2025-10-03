@@ -1,7 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { LoginDropdownButton } from "./LoginDropdownButton";
 
-const Login = () => {
+interface RouteInterface {
+  title: string;
+  route: string;
+}
+
+interface LoginInterface {
+  routes: RouteInterface[];
+}
+
+const Login = ({ routes }: LoginInterface) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -37,9 +46,9 @@ const Login = () => {
       {/* Dropdown */}
       {open && (
         <div className="absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-gray-700">
-          <LoginDropdownButton title="Dashboard" route="" />
-          <LoginDropdownButton title="Settings" route="" />
-          <LoginDropdownButton title="Logout" route="" />
+          {routes.map((element) => (
+            <LoginDropdownButton title={element.title} route={element.route} />
+          ))}
         </div>
       )}
     </div>

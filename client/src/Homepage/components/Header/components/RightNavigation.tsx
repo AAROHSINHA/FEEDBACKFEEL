@@ -24,7 +24,12 @@ const RightNavigation = () => {
         <Github className="w-5 h-5" />
       </button>
       {isLoggedIn ? (
-        <Login />
+        <Login
+          routes={[
+            { title: "Dashboard", route: "/dashboard" },
+            { title: "Settings", route: "/settings" },
+          ]}
+        />
       ) : (
         <Link to={"/sign-up"}>
           <button className="flex items-center gap-1 text-gray-400 hover:text-white text-sm hover:cursor-pointer">

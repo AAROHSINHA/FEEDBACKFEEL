@@ -1,8 +1,10 @@
 import HomePage from "./Homepage/Homepage";
 import SignIn from "./Authentication/Signin/SignUp";
 import Login from "./Authentication/Login/Login";
+import Dashboard from "./Dashboard/Dashboard";
+import Profile from "./Profile/Profile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { createContext, useState } from "react";
+import { useState } from "react";
 import { ThemeContext } from "./ThemeContext";
 
 const App = () => {
@@ -14,6 +16,8 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/sign-up" element={<SignIn />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </ThemeContext.Provider>
