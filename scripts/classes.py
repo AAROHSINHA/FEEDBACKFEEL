@@ -1,7 +1,7 @@
 import uuid
 
 from pydantic import BaseModel
-from sqlalchemy import Column, Integer, String, TIMESTAMP, text, ForeignKey, Text, Float
+from sqlalchemy import Column, Integer, String, TIMESTAMP, text, ForeignKey, Text, Float, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship, declarative_base
 from typing import Optional
@@ -34,6 +34,7 @@ class Feedback(Base):
     sentiment = Column(String(20), nullable=False, server_default="Neutral")
     confidence = Column(Float)
     created_at = Column(TIMESTAMP, server_default=text("now()"))
+    spam = Column(Boolean, server_default="False")
 
     developer = relationship("Developer", back_populates="feedbacks")
 

@@ -1,3 +1,5 @@
+from sys import prefix
+
 from sqlalchemy import create_engine, false, text
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.exc import IntegrityError
@@ -5,7 +7,7 @@ from classes import Base, Developer, Feedback
 from schemas import DeveloperCreateAPP, DeveloperResponse, FeedbackCreate, FeedbackResponse
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.responses import JSONResponse
-from routes import authentication
+from routes import authentication, feedbacks
 from database import get_db
 import joblib
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,12 +24,13 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],  # GET, POST, PUT, DELETE etc.
     allow_headers=["*"],
 )
 app.include_router(authentication.router, prefix="/auth", tags=["Authentication"])
+app.include_router(feedbacks.router, prefix="/feedbacks", tags=["Feedback"])
 
 # simple test check route
 @app.get("/")
@@ -37,6 +40,7 @@ def run_app():
         content={"message": "The Application Runs Fine!"}
     )
 
+'''
 # Simple Inserting
 @app.post("/developer", response_model=DeveloperResponse)
 async def insert_developer(developer: DeveloperCreateAPP, db: Session = Depends(get_db)):
@@ -98,4 +102,4 @@ def insert_feedback(feedback: FeedbackCreate, db: Session = Depends(get_db)):
         print("Unexpected Error Occurred! - ", e)
         raise HTTPException(status_code=500, detail="Unexpected Error Occurred!")
     return feed
-
+'''

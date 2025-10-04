@@ -51,19 +51,10 @@ class DeveloperLogin(BaseModel):
 
 # Request Model For Creating Feedback
 class FeedbackCreate(BaseModel):
-    dev_id: UUID
+    api_key : str
     feedback_text: str
-    # sentiment: str
-    # confidence: float
 
 # Response Model For Feedback
 class FeedbackResponse(BaseModel):
-    id: int
-    dev_id: UUID
-    feedback_text: str
-    sentiment: str
-    confidence: float
-    created_at: datetime
-
-    class Config:
-        from_attribute = True
+    status: str
+    message: str
