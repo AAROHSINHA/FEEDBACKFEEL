@@ -1,0 +1,31 @@
+{
+  "name": "feedbackfeel",
+  "version": "1.0.0",
+  "description": "A simple reusable React feedback widget.",
+  "author": "Aaroh Sinha",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "feedback",
+    "widget",
+    "form"
+  ],
+  "main": "./dist/feedbackfeel.umd.js",
+  "module": "./dist/feedbackfeel.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "test": "echo \"No tests yet\""
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "vite": "^7.1.9"
+  }
+}
