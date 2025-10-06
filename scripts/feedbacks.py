@@ -1,12 +1,16 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import IntegrityError
-from schemas import FeedbackCreate, FeedbackResponse
+from schemas import (FeedbackCreate, FeedbackResponse,
+                     DeveloperFeedbackData, DeveloperFeedbackDataGet)
 from sqlalchemy.orm import Session
 from fastapi.params import Depends
 from database import get_db
 from classes import Developer, Feedback
+from typing import List
+from uuid import UUID
 import joblib
+
 
 router = APIRouter()
 
@@ -34,7 +38,7 @@ def feedback_check():
         status_code=status_code,
         content={
             "status": "success",
-            "message": "Yes the feedbacks route works fine!"
+            "message": "Yes the feedbacks route works fine!!!!"
         }
     )
 
@@ -68,3 +72,13 @@ def save_feedback(feedback: FeedbackCreate, db: Session = Depends(get_db)):
 
     return FeedbackResponse(status="success", message="feedback_added")
 
+# 2. get the feedback for the particular user
+@router.get("/get-feedback-data", response_model=List[DeveloperFeedbackData])
+def get_feedback_data(dev_id: UUID = Query(...), db: Session = Depends(get_db)):
+    try:
+        feedbacks_fetched = db.query(Feedback).filter(Feedback.dev_id == dev_id).all()
+        if not feedbacks_fetched:
+            raise HTTPException(status_code=404, detail="No feedback found for this developer")
+    except IntegrityError as integrity_error:
+        raise HTTPException(status_code=400, detail="integrity_error")
+    return feedbacks_fetched

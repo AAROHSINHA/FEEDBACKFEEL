@@ -43,6 +43,14 @@ class DeveloperAuthResponse(BaseModel):
     message: str
     # user: DeveloperResponse
 
+class DeveloperCheckLoginResponse(BaseModel):
+    status: str
+    name: str
+    email: str
+    dev_id: UUID
+    message: str
+
+
 # Login
 class DeveloperLogin(BaseModel):
     email: str
@@ -58,3 +66,16 @@ class FeedbackCreate(BaseModel):
 class FeedbackResponse(BaseModel):
     status: str
     message: str
+
+class DeveloperFeedbackDataGet(BaseModel):
+    dev_id: str
+
+class DeveloperFeedbackData(BaseModel):
+    feedback_text: str
+    sentiment: str
+    confidence: float
+    created_at: datetime
+    spam: bool
+
+    class Config:
+        orm_mode=True

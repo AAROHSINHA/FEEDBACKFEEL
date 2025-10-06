@@ -9,8 +9,10 @@ from database import get_db
 import secrets
 import bcrypt
 from classes import Developer, Session
-from schemas import DeveloperCreate, DeveloperResponse, DeveloperAuthResponse, DeveloperLogin
+from schemas import (DeveloperCreate, DeveloperResponse,
+                     DeveloperAuthResponse, DeveloperLogin, DeveloperCheckLoginResponse)
 from datetime import datetime, timedelta, timezone
+from typing import Union
 
 router = APIRouter()
 
@@ -118,7 +120,7 @@ async def local_login(response:Response, developer: DeveloperLogin, db: Session 
     return DeveloperAuthResponse(status="success", message="User Logged In")
 
 # 3. Check If User Logged In
-@router.get("/check-login")
+@router.get("/check-login", response_model=Union[DeveloperCheckLoginResponse, DeveloperAuthResponse])
 async def check_login(request: Request, db: Session = Depends(get_db)):
     session_id = request.cookies.get("session_id")
     if not session_id:
@@ -128,11 +130,14 @@ async def check_login(request: Request, db: Session = Depends(get_db)):
     if not user_session_object:
         return DeveloperAuthResponse(status="failure", message="invalid_session")
 
+    user_found = db.query(Developer).filter_by(dev_id=user_session_object.dev_id).first();
     # Rolling expiry update
     user_session_object.expires_at = datetime.now(timezone.utc) + timedelta(hours=72)
     db.commit()
 
-    return DeveloperAuthResponse(status="success", message="User Logged In")
+    return DeveloperCheckLoginResponse(status="success", name=user_found.name,
+                                       email=user_found.email, dev_id= user_found.dev_id,
+                                       message="user_login_success")
 
 
 
