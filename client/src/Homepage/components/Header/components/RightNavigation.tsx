@@ -1,4 +1,4 @@
-import { Globe, User, Moon, Github } from "lucide-react";
+import { User, Moon, Github } from "lucide-react";
 import { useContext } from "react";
 import { ThemeContext } from "../../../../ThemeContext";
 import Login from "./Login";

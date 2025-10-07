@@ -46,8 +46,13 @@ const Login = ({ routes }: LoginInterface) => {
       {/* Dropdown */}
       {open && (
         <div className="absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-gray-700">
-          {routes.map((element) => (
-            <LoginDropdownButton title={element.title} route={element.route} />
+          {routes.map((element, index) => (
+            <div key={index}>
+              <LoginDropdownButton
+                title={element.title}
+                route={element.route}
+              />
+            </div>
           ))}
         </div>
       )}
