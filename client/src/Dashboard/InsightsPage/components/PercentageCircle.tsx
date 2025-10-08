@@ -51,7 +51,7 @@ export function PercentageCircle({
           fill="none"
           strokeLinecap="round"
           strokeDasharray={circumference}
-          strokeDashoffset={offset}
+          strokeDashoffset={String(offset)}
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
         />
       </svg>

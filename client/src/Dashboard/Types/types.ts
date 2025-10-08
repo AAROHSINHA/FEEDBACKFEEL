@@ -4,6 +4,7 @@ export interface FeedbackDataInterface {
   confidence: number;
   created_at: string;
   spam: boolean;
+  bookmarked: boolean;
 }
 
 export interface DashboardDataInterface {

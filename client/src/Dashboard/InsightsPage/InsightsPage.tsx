@@ -6,32 +6,16 @@ const SAMPLE_LOGS = [
   {
     id: "1",
     text: "Loved the new dashboard layout, very intuitive!, Loved the new dashboard layout, very intuitive!, Loved the new dashboard layout, very intuitive!, Loved the new dashboard layout, very intuitive!, Loved the new dashboard layout, very intuitive!",
+    sentiment: "Positive",
     bookmarked: true,
-    read: true,
+    date: "24/07/25",
   },
   {
     id: "2",
-    text: "Performance is great, but loading spinner shows too long on mobile.",
+    text: "Such a bad site man! Such a bad one....",
+    sentiment: "Negative",
     bookmarked: false,
-    read: false,
-  },
-  {
-    id: "3",
-    text: "Neutral on the latest update, didn’t impact my workflow.",
-    bookmarked: false,
-    read: true,
-  },
-  {
-    id: "4",
-    text: "Found a bug: export CSV includes duplicate rows.",
-    bookmarked: true,
-    read: false,
-  },
-  {
-    id: "5",
-    text: "Please add keyboard shortcuts for switching tabs.",
-    bookmarked: false,
-    read: true,
+    date: "12/08/25",
   },
 ];
 

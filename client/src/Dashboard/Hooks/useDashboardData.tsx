@@ -22,7 +22,7 @@ export const useDashboardData = () => {
         `/feedbacks/get-feedback-data?dev_id=${authContext.dev_id}`,
         { withCredentials: true }
       );
-      //   console.log(data.data);
+      console.log(data.data);
       const feedbacks_data: FeedbackDataInterface[] = data.data;
       setDashboardData({
         data: feedbacks_data,
