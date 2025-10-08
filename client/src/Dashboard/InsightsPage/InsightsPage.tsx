@@ -1,6 +1,7 @@
+import { useInsightsStats } from "../Hooks/useInsightsStats";
+import type { FeedbackDataInterface } from "../Types/types";
 import { FeedbackCard } from "./components/FeedbackCard";
 import FeedbackText from "./components/FeedbackText/FeedbackText";
-
 const SAMPLE_LOGS = [
   {
     id: "1",
@@ -34,20 +35,37 @@ const SAMPLE_LOGS = [
   },
 ];
 
-export default function Insights() {
+interface InsightsProps {
+  data: FeedbackDataInterface[];
+}
+
+export default function Insights({ data }: InsightsProps) {
+  const feedback_data = useInsightsStats(data);
   return (
     <section className="px-4 sm:px-8 md:px-16 py-8">
       <div className="flex flex-col md:flex-row gap-6 h-auto">
         {/* Left panel: Feedback summary */}
         <div className="w-full md:w-[420px] flex-shrink-0">
           <FeedbackCard
-            overallPercent={72}
+            overallPercent={feedback_data.sentiment_percentage}
             overallLabel="Customer Sentiment"
-            totalFeedbacks={250}
-            positivePercent={60}
-            neutralPercent={25}
-            negativePercent={15}
-            spamFeedbacks={5}
+            totalFeedbacks={feedback_data.total_feedbacks}
+            positivePercent={Math.round(
+              (feedback_data.positive_feedbacks /
+                feedback_data.total_feedbacks) *
+                100
+            )}
+            neutralPercent={Math.round(
+              (feedback_data.neutral_feedbacks /
+                feedback_data.total_feedbacks) *
+                100
+            )}
+            negativePercent={Math.round(
+              (feedback_data.negative_feedbacks /
+                feedback_data.total_feedbacks) *
+                100
+            )}
+            spamFeedbacks={feedback_data.potential_spam_encountered}
           />
         </div>
 

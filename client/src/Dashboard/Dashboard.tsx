@@ -21,8 +21,15 @@ export default function () {
     }
     if (loading) return;
     if (!authContext.isLoggedIn) navigate("/login");
+    if (error) navigate("/");
     // console.log(data, loading, error);
-  }, [authContext.isLoggedIn, navigate, authContext.authLoading, loading]);
+  }, [
+    authContext.isLoggedIn,
+    navigate,
+    authContext.authLoading,
+    loading,
+    error,
+  ]);
 
   return (
     <section className="bg-[#19191a] min-h-screen">
@@ -40,7 +47,7 @@ export default function () {
         className="my-4"
         aria-label="Example Segmented Tabs"
       />
-      {currentTab == "insights" && <Insights />}
+      {currentTab == "insights" && <Insights data={data} />}
       {currentTab == "analytics" && <Analytics />}
       {currentTab == "resolution portal" && <ResolutionPortal />}
     </section>

@@ -11,3 +11,12 @@ export interface DashboardDataInterface {
   error: boolean;
   loading: boolean;
 }
+
+export interface statsDataInterface {
+  sentiment_percentage: number;
+  total_feedbacks: number;
+  positive_feedbacks: number;
+  neutral_feedbacks: number;
+  negative_feedbacks: number;
+  potential_spam_encountered: number;
+}
