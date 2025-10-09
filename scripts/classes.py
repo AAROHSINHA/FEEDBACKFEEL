@@ -35,6 +35,7 @@ class Feedback(Base):
     confidence = Column(Float)
     created_at = Column(TIMESTAMP, server_default=text("now()"))
     spam = Column(Boolean, server_default="False")
+    bookmarked = Column(Boolean, server_default="False")
 
     developer = relationship("Developer", back_populates="feedbacks")
 

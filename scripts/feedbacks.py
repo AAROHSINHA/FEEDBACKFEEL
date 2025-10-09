@@ -38,8 +38,8 @@ def feedback_check():
         status_code=status_code,
         content={
             "status": "success",
-            "message": "Yes the feedbacks route works fine!!!!"
-        }
+            "message": "Yes the feedbacks route works fine!"
+        }  
     )
 
 # 1. Save Feedback in feedback db (with api key)

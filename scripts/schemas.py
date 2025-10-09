@@ -76,6 +76,7 @@ class DeveloperFeedbackData(BaseModel):
     confidence: float
     created_at: datetime
     spam: bool
+    bookmarked: bool
 
     class Config:
         orm_mode=True
