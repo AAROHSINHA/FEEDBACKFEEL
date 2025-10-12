@@ -26,7 +26,7 @@ export default function TextAbout({
         {sentiment}
       </span>
       {/* Date - small and secondary */}
-      <p className="text-xs mt-2 text-[#a6a6a6]">{date}</p>
+      <p className="text-xs mt-2 text-[#a6a6a6]">{date.split("T")[0]}</p>
     </div>
   );
 }

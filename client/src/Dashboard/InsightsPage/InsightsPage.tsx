@@ -23,11 +23,28 @@ interface InsightsProps {
   data: FeedbackDataInterface[];
 }
 
+type LogItem = {
+  id: string;
+  text: string;
+  sentiment: string;
+  bookmarked: boolean;
+  date: string;
+};
+
 export default function Insights({ data }: InsightsProps) {
   const feedback_data = useInsightsStats(data);
+  const logs = data.map((feedback_item, index): LogItem => {
+    return {
+      id: String(index),
+      text: feedback_item.feedback_text,
+      sentiment: feedback_item.sentiment,
+      bookmarked: feedback_item.bookmarked,
+      date: feedback_item.created_at,
+    };
+  });
   return (
-    <section className="px-4 sm:px-8 md:px-16 py-8">
-      <div className="flex flex-col md:flex-row gap-6 h-auto">
+    <section className="px-4 sm:px-8 md:px-16 py-8 min-h-screen overflow-hidden">
+      <div className="flex flex-col md:flex-row gap-6 h-full">
         {/* Left panel: Feedback summary */}
         <div className="w-full md:w-[420px] flex-shrink-0">
           <FeedbackCard
@@ -55,7 +72,7 @@ export default function Insights({ data }: InsightsProps) {
 
         {/* Right panel: Feedback logs */}
         <div className="flex-1 h-113">
-          <FeedbackText logs={SAMPLE_LOGS} />
+          <FeedbackText logs={logs} />
         </div>
       </div>
     </section>
