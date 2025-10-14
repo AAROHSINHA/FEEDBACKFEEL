@@ -41,7 +41,7 @@ export default function FeedbackText({
       <Header title={title} tab={tab} setTab={setTab} />
       <ul
         role="list"
-        className="divide-y divide-[#222224]/60 rounded-lg overflow-y-auto px-1 flex-1"
+        className="divide-y divide-[#222224]/60 rounded-lg overflow-y-auto px-1 flex-col"
         style={{ maxHeight: "calc(100vh - 250px)" }} // adjust for your header height
       >
         {filtered.length === 0 ? (

@@ -2,7 +2,7 @@ import Header from "./components/Header/Header";
 import HeroSection from "./components/HeroSection/HeroSection";
 import { useContext } from "react";
 import { ThemeContext } from "../ThemeContext";
-import { AuthContext } from "../AuthContext";
+// import { AuthContext } from "../AuthContext";
 
 export default function HomePage() {
   const themeContext = useContext(ThemeContext);
