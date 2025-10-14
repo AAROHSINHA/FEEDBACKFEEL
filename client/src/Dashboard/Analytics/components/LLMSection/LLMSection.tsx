@@ -1,3 +1,9 @@
+import { LLM } from "./components/LLM/LLM";
+
 export const LLMSection = () => {
-  return <section>LLM SECTION</section>;
+  return (
+    <section className="flex justify-center">
+      <LLM />
+    </section>
+  );
 };
