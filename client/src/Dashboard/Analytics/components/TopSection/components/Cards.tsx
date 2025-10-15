@@ -2,7 +2,7 @@ import { Info } from "lucide-react";
 
 interface CardsInterface {
   title: string;
-  words: [] | [string] | [string, string] | [string, string, string];
+  words: string[];
 }
 
 export const Cards = ({ title, words }: CardsInterface) => {

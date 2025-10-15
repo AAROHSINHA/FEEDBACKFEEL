@@ -1,10 +1,11 @@
 import { Header } from "./comp/Header";
 import { InfoBox } from "./comp/InfoBox";
 import { GenerateButton } from "./comp/GenerateButton";
+import { OutputSection } from "./comp/OutputSection";
 export const LLM = () => {
   return (
     <section
-      className="h-100 flex-col md:h-70 w-[100%] my-10 md:w-[60%] mx-5 p-10"
+      className="h-auto flex-col md:h-auto w-[100%] my-10 md:w-[60%] mx-5 p-10"
       style={{
         backgroundColor: "#1f1f1f",
         color: "#4b5563", // gray-600
@@ -16,6 +17,7 @@ export const LLM = () => {
       <Header />
       <InfoBox />
       <GenerateButton />
+      <OutputSection />
     </section>
   );
 };
