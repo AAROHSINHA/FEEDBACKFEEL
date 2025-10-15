@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { useDashboardData } from "./useDashboardData";
+import { useTFIDF } from "./useTFIDF";
 
 interface AnalyticsKeywordsInterface {
-  positiveWords: [] | [string] | [string, string] | [string, string, string];
-  negativeWords: [] | [string] | [string, string] | [string, string, string];
-  overallWords: [] | [string] | [string, string] | [string, string, string];
+  positiveWords: string[];
+  negativeWords: string[];
+  overallWords: string[];
   loading: boolean;
   error: boolean;
 }
-
-const tfIdfFunction = (feedbacks: string[]) => {};
 
 export const useAnalyticsKeywords = () => {
   const [analyticsData, setAnalyticsData] =
@@ -47,10 +46,13 @@ export const useAnalyticsKeywords = () => {
         negativeFeedbackTexts.push(feedbackObject.feedback_text);
       }
     }
+    const topPositiveWords = useTFIDF({ feedbacks: positiveFeedbackTexts });
+    const topNegativeWords = useTFIDF({ feedbacks: negativeFeedbackTexts });
+    const topOverallWords = useTFIDF({ feedbacks: allFeedbackTexts });
     setAnalyticsData({
-      positiveWords: [positiveFeedbackTexts[0]],
-      negativeWords: [negativeFeedbackTexts[0]],
-      overallWords: [allFeedbackTexts[0]],
+      positiveWords: topPositiveWords.slice(0, 3),
+      negativeWords: topNegativeWords.slice(0, 3),
+      overallWords: topOverallWords.slice(0, 3),
       loading: false,
       error: false,
     });
