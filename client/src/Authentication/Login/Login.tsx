@@ -4,9 +4,10 @@ import { Text } from "./components/Text";
 // import { GoogleButton } from "./components/GoogleButton";
 import { SignupButton } from "./components/SignupButton";
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../api";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -24,7 +25,8 @@ export default function Login() {
         email: email,
         password: password,
       });
-      // navigate("/");
+      navigate("/");
+      toast.success("Succesfully Logged In!");
     } catch (error: any) {
       const error_text = error?.response?.data?.detail;
       if (error_text) {

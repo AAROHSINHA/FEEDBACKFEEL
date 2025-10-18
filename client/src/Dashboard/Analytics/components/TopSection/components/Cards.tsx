@@ -1,4 +1,5 @@
 import { Info } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface CardsInterface {
   title: string;
@@ -6,6 +7,14 @@ interface CardsInterface {
 }
 
 export const Cards = ({ title, words }: CardsInterface) => {
+  const handleClick = (title: string) => {
+    toast(
+      `Contains most highlighted and frequently found keywords, spanning over all the feedbacks flagged under category ${title}`,
+      {
+        duration: 4000,
+      }
+    );
+  };
   const textColor =
     title.toLowerCase() == "positive"
       ? "text-green-400"
@@ -26,7 +35,7 @@ export const Cards = ({ title, words }: CardsInterface) => {
       <div className="flex justify-between mb-3">
         <div className="tracking-[3px]">{title}</div>
         <div
-          onClick={() => alert(`MOST COMMON KEYWORDS FROM ${title} Feedbacks`)}
+          onClick={() => handleClick(title)}
           className="hover:cursor-pointer"
         >
           <Info />

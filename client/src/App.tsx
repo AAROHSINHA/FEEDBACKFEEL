@@ -6,11 +6,13 @@ import Profile from "./Profile/Profile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { ThemeContext } from "./ThemeContext";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   return (
     <ThemeContext.Provider value={{ theme: theme, setTheme: setTheme }}>
+      <Toaster position="top-right" reverseOrder={false} />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />

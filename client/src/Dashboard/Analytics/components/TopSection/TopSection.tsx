@@ -1,6 +1,8 @@
 import { Cards } from "./components/Cards";
 import { useAnalyticsKeywords } from "../../../Hooks/useAnalyticsKeywords";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface wordListInterface {
   positiveWordList: string[];
@@ -15,10 +17,12 @@ export const TopSection = () => {
     overallWordList: [],
   });
   const analyticsKeywordsHooks = useAnalyticsKeywords();
+  const navigate = useNavigate();
   useEffect(() => {
     if (analyticsKeywordsHooks.loading) return;
     if (analyticsKeywordsHooks.error) {
-      alert("ERROR IN ANALYTICS KEYWORDS HOOKS");
+      navigate("/");
+      toast.error("Servers are down!");
       return;
     }
     setWordList({
